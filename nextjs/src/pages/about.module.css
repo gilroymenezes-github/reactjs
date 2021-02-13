@@ -1,0 +1,15 @@
+.text {
+    text-align: center;
+}
+
+.header {
+    height: 80px;
+    font-size: large;
+    font-style: oblique;
+    font-weight: bold;
+}
+
+.body {
+    font-size: medium;
+    background-color: aquamarine;
+}
