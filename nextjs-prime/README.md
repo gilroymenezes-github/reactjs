@@ -1,7 +1,7 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-*Uses Functional Components* 
-This is a custom section not in the original readme. These modifications to the example use functional components instead of class components. 
+## Uses Functional Components 
+*This is a custom section not in the original readme. These modifications to the example use functional components instead of class components with primereact.*
 
 ## Getting Started
 
