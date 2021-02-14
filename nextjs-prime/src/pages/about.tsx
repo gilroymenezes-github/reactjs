@@ -2,10 +2,12 @@
 import React, {useRef} from 'react';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
+import { Card } from 'primereact/card';
+import { Panel } from 'primereact/panel';
 import PrimeReact from 'primereact/api';
 import Image from 'next/image';
 
-import styles from './about.module.css';
+import styles from '../styles/about.module.css';
 
 
 function about() {
@@ -18,18 +20,22 @@ function about() {
         toastRef.current.show({severity:severityValue, summary: summaryValue, detail: detailValue});
     }
 
+    const header = <Image className="p-p-2" src="/vercel.svg" alt="vercel" width="128" height="64" /> 
+    const footer = 
+    <span>
+        <Button label="Save" icon="pi pi-check" style={{ marginRight: '.25em' }} onClick={() => showToast('success', 'Success Message', 'The task was successful!')} />
+        <Button label="Cancel" icon="pi pi-times" className="p-button-secondary" />
+    </span>;
+
     return (
-        <div>
-            <span>
-                About
+       
+            <Card className="p-m-4" footer={footer} header={header}>
+                <span className={styles.body}>
+                    What about?
             </span>
-            <Image src="/vercel.svg" alt="vercel" width="128" height="64" />  
-            <span className={styles.body}>
-                What about?
-            </span>
-            <Button label="OK" icon="pi pi-check" onClick={() => showToast('success', 'Success Message', 'The task was successful!')} />   
-            <Toast ref={toastRef} />
-        </div>
+                <Toast ref={toastRef} />
+            </Card>
+        
     )
 }
 
