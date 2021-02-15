@@ -11,5 +11,6 @@
 
 .legend {
     font-size: medium;
-    background-color: darkred;
+    font-style: oblique;
+    /* background-color: darkgray; */
 }
