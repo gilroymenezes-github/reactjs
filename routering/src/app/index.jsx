@@ -1,30 +1,51 @@
-import React, { useState } from 'react';
-import CardList from './card';
-import Form from './form';
+import React from 'react';
+import {
+    BrowserRouter as Router, 
+    Switch, 
+    Route, 
+    Link
+} from 'react-router-dom';
 
-import './index.css';
+import Home from './home';
+import User from './user';
+import About from './about';
 
-const testData = [
-    { id: 1, name: "Dan Abramov", avatar_url: "https://avatars0.githubusercontent.com/u/810438?v=4", company: "Facebook"},
-    { id: 2, name: "Sophie Alpert", avatar_url: "https://avatars2.githubusercontent.com/u/6820?v=4", company: "Facebook"},
-    { id: 3, name: "Sebastian Markbage", avatar_url: "https://avatars2.githubusercontent.com/u/63648?v=4", company: "Facebook"}
-];
 
 const App = ({title}) => {
-    const [profiles, setProfiles] = useState([]); //useState(testData);
-
-    const addProfile = (profile) => {
-        let updatedProfiles = [...profiles, profile];
-        setProfiles(updatedProfiles);
-    };
-
     return (
-            <>
-            <div className="header">{title}</div>
-            <Form onSubmit={addProfile} />
-            <CardList profiles={profiles} />
-            </>
-        );
+    <>
+    <div className="header">{title}</div>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/users">User</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <Switch>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/users">
+            <User />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+    </>
+    );
 }
 
 export default App;
