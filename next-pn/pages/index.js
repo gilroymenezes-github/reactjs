@@ -20,19 +20,42 @@ export default function Home() {
         r += 8
         let item = { label: d.label, data: d.data, borderColor: `rgb(${r}, ${g}, ${b})`, tension: 0.1, fill: false }
         values.push(item)
-      });
-      console.log(values);
+      })
+      const labels = [];
+      data.labels.forEach(l => {
+        let d = new Date(l);
+        labels.push(d.toLocaleDateString('en-In'))
+      })
+      
       setChartData({
-        labels: data.labels,
-        datasets: values
+        labels: labels,
+        datasets: values,
       })
     }
+
+    setChartOptions({
+        plugins: {
+            title: {
+                text: 'Classifications',
+                display: true,
+            },
+            legend: {
+              display: true,
+              position: "top", 
+            },
+        },
+        layout: { 
+          padding: 20
+        }
+    })
+
     fetchCounts()
   }, [])
 
   const [chartData, setChartData] = useState({})
+  const [chartOptions, setChartOptions] = useState({})
   
   return (
-    <div><LineChart chartData={chartData} /></div>
+    <div><LineChart chartData={chartData} chartOptions={chartOptions} /></div>
   )
 }
