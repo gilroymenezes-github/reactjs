@@ -18,7 +18,10 @@ export default function Home() {
         b -= 16
         g = (b+r)/2
         r += 8
-        let item = { label: d.label, data: d.data, borderColor: `rgb(${r}, ${g}, ${b})`, tension: 0.1, fill: false }
+        let item = { 
+          label: d.label, data: d.data, 
+          borderColor: `rgb(${r}, ${g}, ${b})`, backgroundColor: `rgb(${r}, ${g}, ${b})`,
+          tension: 0.1, fill: false }
         values.push(item)
       })
       const labels = [];
@@ -41,7 +44,11 @@ export default function Home() {
             },
             legend: {
               display: true,
-              position: "top", 
+              position: "top",
+              labels: {
+                padding: 40,
+              }
+              
             },
         },
         layout: { 
