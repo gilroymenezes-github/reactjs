@@ -10,11 +10,22 @@ export default function Home() {
     const fetchCounts = async() => {
       const res = await fetch("https://patnet.azurewebsites.net/api/classifications-counts?")
       const data = await res.json()
+      const values = [];
+      let b = 192;
+      let g = 128;
+      let r = 96;
+      data.dataSets.forEach(d => {
+        b -= 16
+        g = (b+r)/2
+        r += 8
+        let item = { label: d.label, data: d.data, borderColor: `rgb(${r}, ${g}, ${b})`, tension: 0.1, fill: false }
+        values.push(item)
+      });
+      console.log(values);
       setChartData({
         labels: data.labels,
-        datasets: data.dataSets
+        datasets: values
       })
-      console.log(data)
     }
     fetchCounts()
   }, [])
