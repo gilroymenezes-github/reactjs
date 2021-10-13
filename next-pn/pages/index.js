@@ -2,8 +2,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { LineChart } from '../components/linechart'
-import styles from '../styles/Home.module.css'
-
 
 export default function Home() {
   useEffect(() => {
@@ -36,18 +34,46 @@ export default function Home() {
             title: {
                 text: 'Classifications',
                 display: true,
+                font: {
+                  size: 20
+                }
             },
             legend: {
               display: true,
               position: "top",
               labels: {
                 padding: 40,
+                font: {
+                  size: 12
+                }
               }
               
             },
         },
         layout: { 
           padding: 20
+        },
+        scales: {
+          yAxes: {
+            title: {
+              display: true,
+              text: 'Counts', 
+              padding: 8, 
+              font: {
+                size: 16
+              }
+            }
+          },
+          xAxes: {
+            title: {
+              display: true,
+              text: 'Dates',
+              padding: 8,
+              font: {
+                size: 16
+              }
+            }
+          }
         }
     })
 
