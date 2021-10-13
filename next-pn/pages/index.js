@@ -11,16 +11,11 @@ export default function Home() {
       const res = await fetch("https://patnet.azurewebsites.net/api/classifications-counts?")
       const data = await res.json()
       const values = [];
-      let b = 192;
-      let g = 128;
-      let r = 96;
       data.dataSets.forEach(d => {
-        b -= 16
-        g = (b+r)/2
-        r += 8
+        const hexColor = `#${Math.floor(Math.random() * 16777215).toString(16).padEnd(6, "0")}`;
         let item = { 
           label: d.label, data: d.data, 
-          borderColor: `rgb(${r}, ${g}, ${b})`, backgroundColor: `rgb(${r}, ${g}, ${b})`,
+          borderColor: hexColor, backgroundColor: hexColor,
           tension: 0.1, fill: false }
         values.push(item)
       })
