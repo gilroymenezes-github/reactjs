@@ -2,13 +2,14 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { LineChart } from '../components/linechart'
+import 'chartjs-adapter-date-fns'
 
 export default function Home() {
   useEffect(() => {
     const fetchCounts = async() => {
       const res = await fetch("https://patnet.azurewebsites.net/api/classifications-counts?")
       const data = await res.json()
-      const values = [];
+      const values = []
       data.dataSets.forEach(d => {
         const hexColor = `#${Math.floor(Math.random() * 16777215).toString(16).padEnd(6, "0")}`;
         let item = { 
@@ -17,10 +18,11 @@ export default function Home() {
           tension: 0.1, fill: false }
         values.push(item)
       })
-      const labels = [];
+      const labels = []
       data.labels.forEach(l => {
-        let d = new Date(l);
-        labels.push(d.toLocaleDateString('en-In'))
+        let d = new Date(l)
+        //labels.push(d.toLocaleDateString('en-In'))
+        labels.push(d)
       })
       
       setChartData({
@@ -65,10 +67,14 @@ export default function Home() {
             }
           },
           xAxes: {
+            type: "timeseries",
+            // time: {
+            //   unit: 'month'
+            // },
             title: {
               display: true,
               text: 'Dates',
-              padding: 8,
+              padding: 16,
               font: {
                 size: 16
               }
