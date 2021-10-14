@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react'
 import { LineChart } from '../components/linechart'
+import { ItemMapper } from '../services/mapper'
 import 'chartjs-adapter-date-fns'
 
 export default function Full() {
+  const values = []
+  const classLabels = []
+      
   useEffect(() => {
     const fetchCounts = async() => {
       const res = await fetch("https://patnet.azurewebsites.net/api/classifications-counts?")
       const data = await res.json()
-      const values = []
       data.dataSets.forEach(d => {
         const hexColor = `#${Math.floor(Math.random() * 16777215).toString(16).padEnd(6, "0")}`;
         let item = { 
-          label: d.label, data: d.data, 
+          label: ItemMapper(d.label), data: d.data, 
           borderColor: hexColor, backgroundColor: hexColor,
           tension: 0.4, fill: false }
         values.push(item)
@@ -31,6 +34,7 @@ export default function Full() {
     }
 
     setChartOptions({
+        responsive: true,
         plugins: {
             title: {
                 text: 'Timeline of Published Applications',
@@ -43,7 +47,7 @@ export default function Full() {
               display: true,
               position: "top",
               labels: {
-                padding: 40,
+                padding: 20,
                 font: {
                   size: 12
                 }

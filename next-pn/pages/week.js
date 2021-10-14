@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { BarChart } from '../components/barchart'
+import { ArrayMapper } from '../services/mapper'
 import 'chartjs-adapter-date-fns'
 
 export default function Week() {
   const values = []
   const colors = []
   const labels = []
+  const mappedLabels = []
   useEffect(() => {
     const fetchCounts = async() => {
       const res = await fetch("https://patnet.azurewebsites.net/api/classifications-counts?")
@@ -19,11 +21,12 @@ export default function Week() {
         return true
       })
       const item = { label: "Counts", data: values, backgroundColor: colors, borderColor: colors };
+      ArrayMapper(labels, mappedLabels)
       const dataSets = [];
       dataSets.push(item);
       
       setChartData({
-        labels: labels,
+        labels: mappedLabels,
         datasets: dataSets,
       })
       let dayDate = new Date(data.labels.reverse()[0]).toDateString()
@@ -35,6 +38,7 @@ export default function Week() {
       return {
       label: labels[0],
       options: {
+        responsive: true,
         indexAxis: "y",
         plugins: {
             title: {
@@ -62,13 +66,19 @@ export default function Week() {
         },
         scales: {
           yAxes: {
-            title: {
-              display: false,
-              padding: 8, 
-              font: {
-                size: 16
-              }
-            }
+            ticks: {
+              mirror: true,
+              z:1000,
+              color: '#000',
+              padding: 10
+            },
+            // title: {
+            //   display: false,
+            //   padding: 8, 
+            //   font: {
+            //     size: 16
+            //   }
+            // }
           },
           xAxes: {
             title: {
