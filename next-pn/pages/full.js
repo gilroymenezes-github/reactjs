@@ -35,6 +35,7 @@ export default function Full() {
 
     setChartOptions({
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
             title: {
                 text: 'Timeline of Published Applications',
