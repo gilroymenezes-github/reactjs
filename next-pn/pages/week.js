@@ -39,7 +39,8 @@ export default function Week() {
       label: labels[0],
       options: {
         responsive: true,
-        maintainAspectRatio: false,
+        aspectRatio: 1.33,
+        //maintainAspectRatio: false,
         indexAxis: "y",
         plugins: {
             title: {
