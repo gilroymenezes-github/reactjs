@@ -8,22 +8,17 @@ export default function Week() {
       const res = await fetch("https://patnet.azurewebsites.net/api/classifications-counts?")
       const data = await res.json()
       const values = []
-      data.dataSets.forEach(d => {
+      data.dataSets.every(d => {
         const hexColor = `#${Math.floor(Math.random() * 16777215).toString(16).padEnd(6, "0")}`;
         let item = { 
-          label: d.label, data: d.data, 
+          label: d.label, data: d.data.reverse().slice(0, 1), 
           borderColor: hexColor, backgroundColor: hexColor,
           tension: 0.1, fill: false }
         values.push(item)
+        return true
       })
-      const labels = []
-      data.labels.reverse().every(l => {
-        let d = new Date(l)
-        //labels.push(d.toLocaleDateString('en-In'))
-        labels.push(d)
-        
-      })
-      
+      const labels = data.labels.reverse().slice(0, 1)
+    
       setChartData({
         labels: labels,
         datasets: values,
