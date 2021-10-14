@@ -3,29 +3,39 @@ import { BarChart } from '../components/barchart'
 import 'chartjs-adapter-date-fns'
 
 export default function Week() {
+  const values = []
+  const colors = []
+  const labels = []
   useEffect(() => {
     const fetchCounts = async() => {
       const res = await fetch("https://patnet.azurewebsites.net/api/classifications-counts?")
       const data = await res.json()
-      const values = []
+      
       data.dataSets.every(d => {
         const hexColor = `#${Math.floor(Math.random() * 16777215).toString(16).padEnd(6, "0")}`;
-        let item = { 
-          label: d.label, data: d.data.reverse().slice(0, 1), 
-          borderColor: hexColor, backgroundColor: hexColor,
-          tension: 0.1, fill: false }
-        values.push(item)
+        labels.push(d.label)
+        values.push(d.data.reverse()[0])
+        colors.push(hexColor)
         return true
       })
-      const labels = data.labels.reverse().slice(0, 1)
-    
+      const item = { label: "Counts", data: values, backgroundColor: colors, borderColor: colors };
+      const dataSets = [];
+      dataSets.push(item);
+      
       setChartData({
         labels: labels,
-        datasets: values,
+        datasets: dataSets,
       })
+      let dayDate = new Date(data.labels.reverse()[0]).toDateString()
+      console.log(dayDate);
+      setChartOptions(fetchChartOptions(dayDate))
     }
 
-    setChartOptions({
+    const fetchChartOptions = (label) => {
+      return {
+      label: labels[0],
+      options: {
+        indexAxis: "y",
         plugins: {
             title: {
                 text: 'Latest Published Applications',
@@ -35,8 +45,9 @@ export default function Week() {
                 }
             },
             legend: {
-              display: true,
-              position: "top",
+              text: "foo",
+              display: false,
+              position: "right",
               labels: {
                 padding: 40,
                 font: {
@@ -52,8 +63,7 @@ export default function Week() {
         scales: {
           yAxes: {
             title: {
-              display: true,
-              text: '# of Published Applications', 
+              display: false,
               padding: 8, 
               font: {
                 size: 16
@@ -61,13 +71,9 @@ export default function Week() {
             }
           },
           xAxes: {
-            // type: "timeseries",
-            // time: {
-            //   unit: 'month'
-            // },
             title: {
               display: true,
-              text: 'Classification',
+              text: `# of Published Applications in the week of ${label}`,
               padding: 16,
               font: {
                 size: 16
@@ -75,7 +81,9 @@ export default function Week() {
             }
           }
         }
-    })
+      }
+    }
+  }
 
     fetchCounts()
   }, [])
