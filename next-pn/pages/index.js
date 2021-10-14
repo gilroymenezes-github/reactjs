@@ -59,7 +59,7 @@ export default function Home() {
           yAxes: {
             title: {
               display: true,
-              text: 'Counts', 
+              text: 'PUBLISHED APPLICATIONS', 
               padding: 8, 
               font: {
                 size: 16
@@ -73,7 +73,7 @@ export default function Home() {
             // },
             title: {
               display: true,
-              text: 'Dates',
+              text: 'DATES',
               padding: 16,
               font: {
                 size: 16
