@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { BarChart } from '../components/barchart'
 import { ArrayMapper } from '../services/mapper'
+import { ArrayColor } from '../services/mapper'
 import 'chartjs-adapter-date-fns'
 
 export default function Week() {
@@ -13,11 +14,13 @@ export default function Week() {
       const res = await fetch("https://patnet.azurewebsites.net/api/classifications-counts?")
       const data = await res.json()
       
+      let i = 0;
       data.dataSets.every(d => {
-        const hexColor = `#${Math.floor(Math.random() * 16777215).toString(16).padEnd(6, "0")}`;
+        //const hexColor = `#${Math.floor(Math.random() * 16777215).toString(16).padEnd(6, "0")}`;
+        const color = ArrayColor("light")[i++]
         labels.push(d.label)
         values.push(d.data.reverse()[0])
-        colors.push(hexColor)
+        colors.push(color)
         return true
       })
       const item = { label: "Counts", data: values, backgroundColor: colors, borderColor: colors };

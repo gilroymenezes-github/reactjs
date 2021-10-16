@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { LineChart } from '../components/linechart'
 import { ItemMapper } from '../services/mapper'
+import { ArrayColor } from '../services/mapper'
 import 'chartjs-adapter-date-fns'
 
 export default function Full() {
@@ -11,12 +12,13 @@ export default function Full() {
     const fetchCounts = async() => {
       const res = await fetch("https://patnet.azurewebsites.net/api/classifications-counts?")
       const data = await res.json()
+      let i = 0
       data.dataSets.forEach(d => {
-        const hexColor = `#${Math.floor(Math.random() * 16777215).toString(16).padEnd(6, "0")}`;
+        const color = ArrayColor("dark")[i++]
         let item = { 
           label: ItemMapper(d.label), data: d.data, 
-          borderColor: hexColor, backgroundColor: hexColor,
-          tension: 0.4, fill: false }
+          borderColor: color, backgroundColor: color,
+          tension: 0.4, fill: false, borderWidth: 1, pointStyle: 'dash' }
         values.push(item)
       })
       const labels = []
