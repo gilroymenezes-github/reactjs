@@ -16,7 +16,7 @@ export const ItemMapper = (label) => {
         case "D":
             return "Textiles & Paper"
         case "E":
-            return "FIxed Constructions"
+            return "Fixed Constructions"
         case "F":
             return "Mechanical Engineering, Lighting, Heating & Weapons"
         case "G": 
