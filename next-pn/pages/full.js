@@ -38,7 +38,7 @@ export default function Full() {
     setChartOptions({
         responsive: true,
         //maintainAspectRatio: false,
-        aspectRatio: 1.33,
+        //aspectRatio: 1.33,
         plugins: {
             title: {
                 text: 'Timeline of Published Applications',
