@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { LineChart } from '../components/linechart'
 import { ItemMapper } from '../services/mapper'
 import { ArrayColor } from '../services/mapper'
+import { DateLocale } from '../services/localer'
 import 'chartjs-adapter-date-fns'
 
 export default function Full() {
@@ -24,8 +25,8 @@ export default function Full() {
       const labels = []
       data.labels.every(l => {
         let d = new Date(l)
-        //labels.push(d.toLocaleDateString('en-In'))
-        labels.push(d)
+        let ld = DateLocale(d, "UTC") // convert to UTC from local time
+        labels.push(ld)
         return true
       })
       
