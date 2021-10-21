@@ -41,7 +41,7 @@ export default function Full() {
         //aspectRatio: 1.33,
         plugins: {
             title: {
-                text: 'Timeline of Published Applications',
+                text: 'Published Indian Patent Applications 2021',
                 display: true,
                 font: {
                   size: 20
